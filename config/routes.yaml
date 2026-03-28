@@ -1,0 +1,41 @@
+search_parameters:
+  adults: 1
+  cabin_class: ECONOMY
+  days_in_advance:
+    - 7
+    - 14
+    - 21
+    - 30
+    - 45
+    - 60
+
+routes:
+  domestic:
+    - origin: YUL
+      destination: YYZ
+    - origin: YUL
+      destination: YVR
+    - origin: YUL
+      destination: YYC
+    - origin: YUL
+      destination: YEG
+
+  short_international:
+    - origin: YUL
+      destination: JFK
+    - origin: YUL
+      destination: ORD
+    - origin: YUL
+      destination: MIA
+    - origin: YUL
+      destination: LAX
+
+  long_international:
+    - origin: YUL
+      destination: CDG
+    - origin: YUL
+      destination: LHR
+    - origin: YUL
+      destination: CUN
+    - origin: YUL
+      destination: MEX

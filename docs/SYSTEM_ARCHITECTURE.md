@@ -111,11 +111,14 @@ logic is fully decoupled from external APIs and storage infrastructure.
 
 ### 4.1 Data Source
 
-| Source | Type | Endpoint | Environment |
-|---|---|---|---|
-| Amadeus | GDS | GET /v2/shopping/flight-offers | test.api.amadeus.com |
+
+| Source  | Type | Endpoint                       | Environment          |
+| ------- | ---- | ------------------------------ | -------------------- |
+| Amadeus | GDS  | GET /v2/shopping/flight-offers | test.api.amadeus.com |
+
 
 ### 4.2 Bronze Layer
+
 - **Purpose:** Store raw API responses without modification
 - **Storage:** Local filesystem
 - **Format:** JSON
@@ -123,6 +126,7 @@ logic is fully decoupled from external APIs and storage infrastructure.
 - **Retention:** Permanent — source of truth for all transformations
 
 ### 4.3 Silver Layer
+
 - **Purpose:** Normalize raw responses into a standard snapshot schema
 - **Storage:** Local filesystem
 - **Format:** Parquet (snappy compression)
@@ -131,6 +135,7 @@ logic is fully decoupled from external APIs and storage infrastructure.
 snapshot per route and search parameters
 
 ### 4.4 Gold Layer
+
 - **Purpose:** Apply coverage analysis and anomaly detection to generate
 metrics per route and segment
 - **Storage:** Local filesystem
@@ -140,6 +145,7 @@ metrics per route and segment
 flags per route
 
 ### 4.5 PostgreSQL
+
 - **Purpose:** Store snapshots and metrics for querying and dashboard
 - **Host:** localhost (development)
 - **Database:** search_monitor
@@ -148,6 +154,7 @@ flags per route
 anomaly log
 
 ### 4.6 Tableau Public
+
 - **Purpose:** Visualize search engine performance and anomalies
 - **Access:** Public URL
 - **Connection:** PostgreSQL localhost
@@ -196,6 +203,8 @@ Output: Search Performance Dashboard — public URL
 
 ```
 search-engine-monitor/
+    config/
+        routes.yaml
     data/
         bronze/
         silver/
@@ -241,15 +250,17 @@ search-engine-monitor/
 
 ## 7. Technology Stack
 
-| Component | Technology | Version |
-|---|---|---|
-| Language | Python | 3.12 |
-| Data processing | Pandas + PyArrow | Latest |
-| Data validation | Pydantic | v2 |
-| Database | PostgreSQL | 16 |
-| DB connector | Psycopg2 | Latest |
-| Dashboard | Tableau Public | Latest |
-| Version control | Git + GitHub | — |
+
+| Component       | Technology       | Version |
+| --------------- | ---------------- | ------- |
+| Language        | Python           | 3.12    |
+| Data processing | Pandas + PyArrow | Latest  |
+| Data validation | Pydantic         | v2      |
+| Database        | PostgreSQL       | 16      |
+| DB connector    | Psycopg2         | Latest  |
+| Dashboard       | Tableau Public   | Latest  |
+| Version control | Git + GitHub     | —       |
+
 
 ---
 
@@ -257,25 +268,27 @@ search-engine-monitor/
 
 ### Standard Snapshot Schema — Silver Layer
 
-| Field | Type | Description |
-|---|---|---|
-| `snapshot_at` | datetime | Timestamp when the search was executed |
-| `origin` | string | IATA origin airport code (3 characters) |
-| `destination` | string | IATA destination airport code (3 characters) |
-| `departure_date` | date | Departure date searched |
-| `days_in_advance` | integer | Days between snapshot and departure date |
-| `segment` | string | Route segment: domestic, short_international, long_international |
-| `total_offers` | integer | Total number of offers returned by Amadeus |
-| `unique_carriers` | integer | Number of unique airlines in results |
-| `direct_flights` | integer | Number of non-stop offers |
-| `connecting_flights` | integer | Number of connecting offers |
-| `price_min` | decimal | Minimum price across all offers |
-| `price_avg` | decimal | Average price across all offers |
-| `price_max` | decimal | Maximum price across all offers |
-| `currency` | string | ISO 4217 currency code |
-| `avg_dq_score` | decimal | Average data quality score across all offers |
-| `is_coverage_anomaly` | boolean | True when total_offers falls below defined threshold |
-| `is_price_anomaly` | boolean | True when price deviates from expected range |
+
+| Field                 | Type     | Description                                                      |
+| --------------------- | -------- | ---------------------------------------------------------------- |
+| `snapshot_at`         | datetime | Timestamp when the search was executed                           |
+| `origin`              | string   | IATA origin airport code (3 characters)                          |
+| `destination`         | string   | IATA destination airport code (3 characters)                     |
+| `departure_date`      | date     | Departure date searched                                          |
+| `days_in_advance`     | integer  | Days between snapshot and departure date                         |
+| `segment`             | string   | Route segment: domestic, short_international, long_international |
+| `total_offers`        | integer  | Total number of offers returned by Amadeus                       |
+| `unique_carriers`     | integer  | Number of unique airlines in results                             |
+| `direct_flights`      | integer  | Number of non-stop offers                                        |
+| `connecting_flights`  | integer  | Number of connecting offers                                      |
+| `price_min`           | decimal  | Minimum price across all offers                                  |
+| `price_avg`           | decimal  | Average price across all offers                                  |
+| `price_max`           | decimal  | Maximum price across all offers                                  |
+| `currency`            | string   | ISO 4217 currency code                                           |
+| `avg_dq_score`        | decimal  | Average data quality score across all offers                     |
+| `is_coverage_anomaly` | boolean  | True when total_offers falls below defined threshold             |
+| `is_price_anomaly`    | boolean  | True when price deviates from expected range                     |
+
 
 ---
 
@@ -294,7 +307,7 @@ Architecture principles and Test-Driven Development (TDD).
 ---
 
 ## 10. Environment Variables
-
+ 
 ```
 # Amadeus
 AMADEUS_API_KEY=
@@ -307,3 +320,4 @@ DB_NAME=search_monitor
 DB_USER=
 DB_PASSWORD=
 ```
+
