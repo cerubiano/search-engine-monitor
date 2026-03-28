@@ -279,7 +279,21 @@ search-engine-monitor/
 
 ---
 
-## 9. Environment Variables
+## 9. Development Workflow
+
+This project follows a strict development order based on Hexagonal
+Architecture principles and Test-Driven Development (TDD).
+
+1. Domain base — exceptions and models first, no external dependencies
+2. Ports — contracts defined before any implementation
+3. Services — business logic implemented test-first
+4. Adapters — infrastructure implemented test-first against port contracts
+5. Orchestration — pipeline assembled only after all components are tested
+6. Configuration — environment variables and dependencies locked last
+
+---
+
+## 10. Environment Variables
 
 ```
 # Amadeus
