@@ -33,9 +33,6 @@ class SnapshotModel(BaseModel):
     price_max: Optional[Decimal]
     currency: Optional[str]
 
-    # Quality
-    avg_dq_score: Optional[Decimal]
-
     # Anomaly flags
     is_coverage_anomaly: bool = False
     is_price_anomaly: bool = False

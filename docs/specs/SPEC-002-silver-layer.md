@@ -22,7 +22,7 @@ snapshot per route and search parameters.
 | `price_avg` | decimal | Average price across all offers |
 | `price_max` | decimal | Maximum price across all offers |
 | `currency` | string | ISO 4217 currency code |
-| `avg_dq_score` | decimal | Average data quality score across all offers |
+
 
 ## Segment Classification
 
@@ -41,6 +41,5 @@ and `departure_date`
 - `direct_flights` counted as offers with zero stops
 - `connecting_flights` counted as offers with one or more stops
 - `price_min`, `price_avg`, `price_max` calculated across all offers
-- `avg_dq_score` calculated by reusing scoring logic from Project 1
 - Null fields explicitly stored as null — not omitted
 - Output saved as Parquet to `data/silver/`
