@@ -135,10 +135,13 @@ python src/main.py
 ## Results
 
 ### Key Insights
-*To be completed after pipeline execution.*
+- LAX and ORD show the highest average offer coverage across all segments
+- 67 of 103 snapshots triggered a price anomaly — indicating high price spread across most routes
+- Long international routes average ~667 EUR vs ~280 EUR for domestic
+- Price anomalies concentrate in the 7-day advance window across most routes
 
 ### Dashboard
-*To be completed after Tableau Public deployment.*
+[Search Engine Performance Monitor](https://public.tableau.com/app/profile/carlos.rubiano3854/viz/Searchenginemonitor/SearchEnginePerformanceMonitor)
 
 ---
 
