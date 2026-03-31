@@ -79,3 +79,17 @@ def anomaly_snapshot():
         is_coverage_anomaly=False,
         is_price_anomaly=False,
     )
+
+@pytest.fixture
+def mock_amadeus_response():
+    return {
+        "data": [
+            {
+                "itineraries": [
+                    {"segments": [{"departure": {"iataCode": "YUL"}}]}
+                ],
+                "price": {"grandTotal": "200.00", "currency": "EUR"},
+                "validatingAirlineCodes": ["AC"]
+            }
+        ]
+    }
